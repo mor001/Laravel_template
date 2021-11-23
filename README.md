@@ -68,3 +68,23 @@ $ docker-compose exec php bash
 
 ### Laravel install
 $ composer create-project laravel/laravel example-app
+
+<pre>
+launch.jsonの構成
+{
+  "version": "0.2.0",
+  "configurations": [
+
+    {
+      "name": "Listen for Xdebug",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "hostname": "0.0.0.0",
+      "pathMappings": {
+        "/var/www/html": "${workspaceRoot}"
+      }
+    }
+  ]
+}
+</pre>
