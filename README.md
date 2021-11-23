@@ -8,87 +8,99 @@
 </pre>
 
 
-## 以下Ubuntu20.04で動作確認
+#### 以下Ubuntu20.04で動作確認
 
-### docker起動
-sudo service docker start
+### Laravelを動かすまで
 
-### dockerディレクトリに移動
-cd docker
+- docker起動
+`sudo service docker start`
 
-### コンテナ起動
-docker-compose up -d --build
+- dockerディレクトリに移動
+`cd docker`
 
-### PHPコンテナに入る
-docker-compose exec php bash
+- コンテナ起動
+`docker-compose up -d --build`
 
-### パッケージをインストール
-composer install
+- PHPコンテナに入る
+`docker-compose exec php bash`
 
-### .env作成
-cp .env.example .env
+- パッケージをインストール
+`composer install`
 
-### ストレージシンボリックリンク作成
-php artisan storage:link
+- .env作成
+`cp .env.example .env`
 
-### アプリケーションキーを生成
-php artisan key:generate
+- ストレージシンボリックリンク作成
+`php artisan storage:link`
 
-### マイグレーション実行
-php artisan migrate
+- アプリケーションキーを生成
+`php artisan key:generate`
 
-### パーミッション設定
-chmod -R 777 storage/ bootstrap/cache/
+- マイグレーション実行
+`php artisan migrate`
 
-### 動作確認
-http://127.0.0.1:8888/
+- パーミッション設定
+`chmod -R 777 storage/ bootstrap/cache/`
+
+- 動作確認
+`http://127.0.0.1:8888/`
 
 ---
 
-### nodeコンテナに入る
-docker-compose exec node bash
+### css js コンパイル
 
-npm install
+- nodeコンテナに入る
+`docker-compose exec node bash`
 
-npm run dev
+- パッケージインストール
+`npm install`
+
+- コンパイル
+`npm run dev`
 (*エラー時 rm -rf node_modules rm package-lock.json)
 
 ---
 
+###メール送信テスト
+
+- phpコンテナに入る
+`docker-compose exec php bash`
+
+`php artisan tinker`
+
+`Mail::raw('hello world', function ($message) { $message->to('test@example.com')->subject('hello'); });`
+
+`Ctrl + c で終了`
+
+`http://127.0.0.1:8025/` で確認できる
+
 ---
-##メール送信テスト
-### phpコンテナに入る
-docker-compose exec php bash
 
-php artisan tinker
+### Minioの確認
 
-Mail::raw('hello world', function ($message) { $message->to('test@example.com')->subject('hello'); });
-
-Ctrl + c で終了
-
-http://127.0.0.1:8025/
-で確認できる
+`http://localhost:9001/` minio/minio123でログインして確認できる
 
 ---
 
-## MEMO
-### コンテナ起動
-$ docker-compose up -d
+### MEMO
 
-### コンテナ削除
-$ docker-compose down
+- コンテナ起動
+`docker-compose up -d`
 
-### コンテナ、イメージ、ボリューム、ネットワークを一括完全消去
-$ docker-compose down --rmi all --volumes
+- コンテナ削除
+`docker-compose down`
 
-### phpコンテナに接続する（コンテナ名を変えて他のコンテナに接続できる）
-$ docker-compose exec php bash
+- コンテナ、イメージ、ボリューム、ネットワークを一括完全消去
+`docker-compose down --rmi all --volumes`
 
-### Laravel install
-$ composer create-project laravel/laravel example-app
+- phpコンテナに接続する（コンテナ名を変えて他のコンテナに接続できる）
+`docker-compose exec php bash`
 
+- Laravel install
+`composer create-project laravel/laravel example-app`
+
+- VSCode launch.jsonの構成
 <pre>
-launch.jsonの構成
 {
   "version": "0.2.0",
   "configurations": [
