@@ -22,7 +22,7 @@ docker-compose up -d --build
 ### PHPコンテナに入る
 docker-compose exec php bash
 
-### Laravelに必要なパッケージインストール
+### パッケージをインストール
 composer install
 
 ### .env作成
@@ -47,6 +47,8 @@ http://127.0.0.1:8888/
 
 ### nodeコンテナに入る
 docker-compose exec node bash
+
+npm install
 
 npm run dev
 (*エラー時 rm -rf node_modules rm package-lock.json)
