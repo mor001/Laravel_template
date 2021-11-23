@@ -55,6 +55,22 @@ npm run dev
 
 ---
 
+---
+##メール送信テスト
+### phpコンテナに入る
+docker-compose exec php bash
+
+php artisan tinker
+
+Mail::raw('hello world', function ($message) { $message->to('test@example.com')->subject('hello'); });
+
+Ctrl + c で終了
+
+http://127.0.0.1:8025/
+で確認できる
+
+---
+
 ## MEMO
 ### コンテナ起動
 $ docker-compose up -d
